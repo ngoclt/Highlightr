@@ -65,11 +65,7 @@ open class Highlightr
         }
         
         let hgJs = try! String.init(contentsOfFile: hgPath)
-        let value = jsContext.evaluateScript(hgJs)
-        if value?.toBool() != true
-        {
-            return nil
-        }
+        jsContext.evaluateScript(hgJs)
         guard let hljs = window?.objectForKeyedSubscript("hljs") else
         {
             return nil
@@ -93,7 +89,7 @@ open class Highlightr
     @discardableResult
     open func setTheme(to name: String) -> Bool
     {
-        guard let defTheme = bundle.path(forResource: name+".min", ofType: "css") else
+        guard let defTheme = bundle.path(forResource: name, ofType: "css") else
         {
             return false
         }
